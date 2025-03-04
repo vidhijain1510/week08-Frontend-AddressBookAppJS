@@ -46,4 +46,9 @@ public class AddressBook {
         contacts.add(newContact);
         System.out.println("Contact updated successfully.");
     }
+
+    public void deleteContact(Contact contact) {
+        contacts.remove(contact);
+        System.out.println("Contact deleted successfully.");
+    }
 }
