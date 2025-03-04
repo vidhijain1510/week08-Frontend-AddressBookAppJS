@@ -2,7 +2,6 @@ package com.addressbook;
 
 import com.addressbook.model.Contact;
 import com.addressbook.service.AddressBook;
-
 import java.util.*;
 
 public class AddressBookMain {
@@ -65,7 +64,8 @@ public class AddressBookMain {
             System.out.println("\nManaging Address Book: " + name);
             System.out.println("1. Add Contact");
             System.out.println("2. Display Contacts");
-            System.out.println("3. Go Back");
+            System.out.println("3. Edit Contact");
+            System.out.println("4. Go Back");
             System.out.print("Enter choice: ");
 
             int choice = scanner.nextInt();
@@ -79,6 +79,9 @@ public class AddressBookMain {
                     selectedBook.displayContacts();
                     break;
                 case 3:
+                    editContact(selectedBook);
+                    break;
+                case 4:
                     return;
                 default:
                     System.out.println("Invalid choice, try again.");
@@ -108,6 +111,52 @@ public class AddressBookMain {
 
             Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
             addressBook.addContact(contact);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static void editContact(AddressBook addressBook) {
+        System.out.print("Enter First Name of Contact to Edit: ");
+        String firstName = scanner.nextLine();
+        System.out.print("Enter Last Name of Contact to Edit: ");
+        String lastName = scanner.nextLine();
+
+        Optional<Contact> contactOptional = addressBook.findContactByName(firstName, lastName);
+        if (contactOptional.isEmpty()) {
+            System.out.println("Contact not found.");
+            return;
+        }
+
+        Contact oldContact = contactOptional.get();
+
+        try {
+            System.out.println("Enter new details (leave blank to keep unchanged):");
+
+            System.out.print("New Address: ");
+            String address = scanner.nextLine();
+            System.out.print("New City: ");
+            String city = scanner.nextLine();
+            System.out.print("New State: ");
+            String state = scanner.nextLine();
+            System.out.print("New Zip Code: ");
+            String zipInput = scanner.nextLine();
+            System.out.print("New Phone Number: ");
+            String phoneInput = scanner.nextLine();
+            System.out.print("New Email: ");
+            String email = scanner.nextLine();
+
+            // Use old values if fields are left blank
+            String newAddress = address.isEmpty() ? oldContact.getAddress() : address;
+            String newCity = city.isEmpty() ? oldContact.getCity() : city;
+            String newState = state.isEmpty() ? oldContact.getState() : state;
+            int newZip = zipInput.isEmpty() ? oldContact.getZip() : Integer.parseInt(zipInput);
+            long newPhone = phoneInput.isEmpty() ? oldContact.getPhoneNumber() : Long.parseLong(phoneInput);
+            String newEmail = email.isEmpty() ? oldContact.getEmail() : email;
+
+            Contact newContact = new Contact(oldContact.getFirstName(), oldContact.getLastName(),
+                    newAddress, newCity, newState, newZip, newPhone, newEmail);
+            addressBook.editContact(oldContact, newContact);
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         }

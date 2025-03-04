@@ -1,8 +1,10 @@
 package com.addressbook.service;
 
 import com.addressbook.model.Contact;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AddressBook {
     private String name;
@@ -31,5 +33,17 @@ public class AddressBook {
                 System.out.println(contact);
             }
         }
+    }
+
+    public Optional<Contact> findContactByName(String firstName, String lastName) {
+        return contacts.stream()
+                .filter(c -> c.getFirstName().equalsIgnoreCase(firstName) && c.getLastName().equalsIgnoreCase(lastName))
+                .findFirst();
+    }
+
+    public void editContact(Contact oldContact, Contact newContact) {
+        contacts.remove(oldContact);
+        contacts.add(newContact);
+        System.out.println("Contact updated successfully.");
     }
 }
