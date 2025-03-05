@@ -110,6 +110,31 @@ class AddressBook {
             stateGroups[state].map(contact => console.log(contact.toString()));
         });
     }
+
+    countByCity() {
+        let cityCounts = this.contacts.reduce((result, contact) => {
+            result[contact.city] = (result[contact.city] || 0) + 1;
+            return result;
+        }, {});
+    
+        console.log("\n📊 Contact count by City:");
+        Object.entries(cityCounts).forEach(([city, count]) => {
+            console.log(`🏙️ ${city}: ${count} contact(s)`);
+        });
+    }
+    
+    countByState() {
+        let stateCounts = this.contacts.reduce((result, contact) => {
+            result[contact.state] = (result[contact.state] || 0) + 1;
+            return result;
+        }, {});
+    
+        console.log("\n Contact count by State:");
+        Object.entries(stateCounts).forEach(([state, count]) => {
+            console.log(`🗺️ ${state}: ${count} contact(s)`);
+        });
+    }
+    
     
 }
 
