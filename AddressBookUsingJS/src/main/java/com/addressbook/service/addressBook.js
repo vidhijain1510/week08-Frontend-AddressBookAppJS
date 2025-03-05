@@ -5,10 +5,18 @@ class AddressBook {
     }
 
     addContact(contact) {
-        this.contacts.push(contact);
-        console.log(" Contact added successfully.");
+        let isDuplicate = this.contacts.some(c => 
+            c.firstName.toLowerCase() === contact.firstName.toLowerCase() && 
+            c.lastName.toLowerCase() === contact.lastName.toLowerCase()
+        );
+    
+        if (isDuplicate) {
+            console.log("Duplicate entry! Contact already exists.");
+        } else {
+            this.contacts.push(contact);
+            console.log("Contact added successfully.");
+        }
     }
-
     displayContacts() {
         if (this.contacts.length === 0) {
             console.log(" No contacts found.");
