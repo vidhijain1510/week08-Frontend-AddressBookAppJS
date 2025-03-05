@@ -64,6 +64,26 @@ class AddressBook {
     getContactCount() {
         return this.contacts.reduce((count) => count + 1, 0);
     }
+
+    searchByCity(city) {
+        let results = this.contacts.filter(contact => contact.city.toLowerCase() === city.toLowerCase());
+        if (results.length === 0) {
+            console.log(` No contacts found in ${city}.`);
+        } else {
+            console.log(`Contacts in ${city}:`);
+            results.map(contact => console.log(contact.toString()));
+        }
+    }
+    
+    searchByState(state) {
+        let results = this.contacts.filter(contact => contact.state.toLowerCase() === state.toLowerCase());
+        if (results.length === 0) {
+            console.log(` No contacts found in ${state}.`);
+        } else {
+            console.log(`Contacts in ${state}:`);
+            results.map(contact => console.log(contact.toString()));
+        }
+    }
 }
 
 module.exports = AddressBook;
