@@ -134,6 +134,16 @@ class AddressBook {
             console.log(`🗺️ ${state}: ${count} contact(s)`);
         });
     }
+
+    sortByName() {
+        let sortedContacts = [...this.contacts].sort((a, b) => 
+            a.firstName.localeCompare(b.firstName)
+        );
+    
+        console.log("\n Address Book Sorted by Name:");
+        sortedContacts.forEach(contact => console.log(contact.toString()));
+    }
+    
     
     
 }
