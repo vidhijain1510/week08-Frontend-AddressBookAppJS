@@ -117,9 +117,9 @@ class AddressBook {
             return result;
         }, {});
     
-        console.log("\n📊 Contact count by City:");
+        console.log("\nContact count by City:");
         Object.entries(cityCounts).forEach(([city, count]) => {
-            console.log(`🏙️ ${city}: ${count} contact(s)`);
+            console.log(`${city}: ${count} contact(s)`);
         });
     }
     
@@ -131,7 +131,7 @@ class AddressBook {
     
         console.log("\n Contact count by State:");
         Object.entries(stateCounts).forEach(([state, count]) => {
-            console.log(`🗺️ ${state}: ${count} contact(s)`);
+            console.log(` ${state}: ${count} contact(s)`);
         });
     }
 
@@ -143,6 +143,34 @@ class AddressBook {
         console.log("\n Address Book Sorted by Name:");
         sortedContacts.forEach(contact => console.log(contact.toString()));
     }
+
+    sortByCity() {
+        let sortedContacts = [...this.contacts].sort((a, b) => 
+            a.city.localeCompare(b.city)
+        );
+    
+        console.log("\nAddress Book Sorted by City:");
+        sortedContacts.forEach(contact => console.log(contact.toString()));
+    }
+    
+    sortByState() {
+        let sortedContacts = [...this.contacts].sort((a, b) => 
+            a.state.localeCompare(b.state)
+        );
+    
+        console.log("\nAddress Book Sorted by State:");
+        sortedContacts.forEach(contact => console.log(contact.toString()));
+    }
+    
+    sortByZip() {
+        let sortedContacts = [...this.contacts].sort((a, b) => 
+            a.zip - b.zip
+        );
+    
+        console.log("\n Address Book Sorted by Zip:");
+        sortedContacts.forEach(contact => console.log(contact.toString()));
+    }
+    
     
     
     
