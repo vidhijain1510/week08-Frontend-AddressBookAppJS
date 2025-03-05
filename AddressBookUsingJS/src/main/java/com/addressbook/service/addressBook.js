@@ -84,6 +84,33 @@ class AddressBook {
             results.map(contact => console.log(contact.toString()));
         }
     }
+
+    viewByCity() {
+        let cityGroups = this.contacts.reduce((result, contact) => {
+            (result[contact.city] = result[contact.city] || []).push(contact);
+            return result;
+        }, {});
+    
+        console.log("\nPersons grouped by City:");
+        Object.keys(cityGroups).forEach(city => {
+            console.log(`\n${city}:`);
+            cityGroups[city].map(contact => console.log(contact.toString()));
+        });
+    }
+    
+    viewByState() {
+        let stateGroups = this.contacts.reduce((result, contact) => {
+            (result[contact.state] = result[contact.state] || []).push(contact);
+            return result;
+        }, {});
+    
+        console.log("\nPersons grouped by State:");
+        Object.keys(stateGroups).forEach(state => {
+            console.log(`\n${state}:`);
+            stateGroups[state].map(contact => console.log(contact.toString()));
+        });
+    }
+    
 }
 
 module.exports = AddressBook;
